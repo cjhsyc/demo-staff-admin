@@ -1,4 +1,9 @@
-type Introduction = Array<{name: string, file: File}>
+type IntroductionFile = {
+  name: string
+  file: File
+}
+
+type Introduction = Array<IntroductionFile>
 
 type Staff = {
   id: string
