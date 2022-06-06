@@ -65,7 +65,7 @@
       <el-table-column label="个人规划" prop="planning"></el-table-column>
       <el-table-column label="个人简介" prop="introduction">
         <template v-slot="{row}">
-          {{ row.introduction.map((item: any ) => item.name).join('，') }}
+          {{ row.introduction.map(item => item.name).join('，') }}
         </template>
       </el-table-column>
       <el-table-column label="所在公司地址" prop="address"></el-table-column>
