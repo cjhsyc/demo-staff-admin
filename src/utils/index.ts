@@ -1,4 +1,7 @@
-export function compareArrays(arr1: Array<any>, arr2: Array<any>): boolean {
+export function compareArrays(
+  arr1: Array<unknown>,
+  arr2: Array<unknown>
+): boolean {
   const len: number = arr1.length
   if (len !== arr2.length) {
     return false

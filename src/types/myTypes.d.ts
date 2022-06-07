@@ -21,7 +21,7 @@ type Staff = {
 
 type Result = {
   code: number
-  data: any
+  data: unknown
 }
 
 type KeyValue = {

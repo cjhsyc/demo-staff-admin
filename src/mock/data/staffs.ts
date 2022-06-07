@@ -1,6 +1,6 @@
-import {Random} from "mockjs";
-import {compareArrays} from "@/utils";
-import {getAddress} from "@/utils/address";
+import { Random } from 'mockjs'
+import { compareArrays } from '@/utils'
+import { getAddress } from '@/utils/address'
 
 const staffs: Array<Staff> = []
 for (let i = 0; i < 14; i++) {
@@ -25,7 +25,8 @@ export default {
       pageSize,
       currentPage,
       queryData
-    }: { pageSize: number, currentPage: number, queryData?: QueryData } = JSON.parse(options.body)
+    }: { pageSize: number; currentPage: number; queryData?: QueryData } =
+      JSON.parse(options.body as string)
     let list: Staff[] = staffs
     if (typeof queryData !== 'undefined') {
       list = staffs.filter((staff) => {
@@ -35,10 +36,19 @@ export default {
         if (queryData.entryDate && staff.entryDate !== queryData.entryDate) {
           return false
         }
-        if (queryData.selfPositioning.length && !compareArrays(queryData.selfPositioning, staff.selfPositioning)) {
+        if (
+          queryData.selfPositioning.length &&
+          !compareArrays(queryData.selfPositioning, staff.selfPositioning)
+        ) {
           return false
         }
-        return staff.address.startsWith(getAddress(queryData.provinceCode, queryData.cityCode, queryData.countyCode));
+        return staff.address.startsWith(
+          getAddress(
+            queryData.provinceCode,
+            queryData.cityCode,
+            queryData.countyCode
+          )
+        )
       })
     }
     const total: number = list.length
@@ -52,7 +62,7 @@ export default {
     }
   },
   removeStaff: (options: MockApiOptions): Result => {
-    const id: string = options.body
+    const id: string = options.body as string
     for (let i = 0; i < staffs.length; i++) {
       if (staffs[i].id === id) {
         staffs.splice(i, 1)
@@ -74,7 +84,7 @@ export default {
     }
   },
   removeStaffs: (options: MockApiOptions): Result => {
-    const list: string[] = JSON.parse(options.body)
+    const list: string[] = JSON.parse(options.body as string)
     const stack: number[] = []
     for (let i = 0; i < staffs.length; i++) {
       if (list.includes(staffs[i].id)) {
@@ -102,7 +112,7 @@ export default {
     }
   },
   uploadIntroduction: (options: MockApiOptions): Result => {
-    const introductionFile = options.body.get('file')
+    const introductionFile = (options.body as FormData).get('file') as File
     return {
       code: 200,
       data: {
@@ -112,8 +122,8 @@ export default {
     }
   },
   saveStaff: (options: MockApiOptions): Result => {
-    const staff: Staff = JSON.parse(options.body)
-    staffs.forEach(item => {
+    const staff: Staff = JSON.parse(options.body as string)
+    staffs.forEach((item) => {
       if (item.mail === staff.mail) {
         return {
           code: 200,

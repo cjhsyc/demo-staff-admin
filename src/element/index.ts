@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue'
 import {
   Table,
   Button,
@@ -18,7 +18,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Upload
-} from "element-ui";
+} from 'element-ui'
 
 Vue.use(Table)
 Vue.use(Button)

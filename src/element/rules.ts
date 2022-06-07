@@ -1,4 +1,4 @@
-const entryDateValidator = (rule: any, value: string, callback: Function) => {
+const entryDateValidator = (rule: unknown, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请选择入职日期'))
   } else if (Date.parse(value) > Date.now()) {
@@ -7,7 +7,7 @@ const entryDateValidator = (rule: any, value: string, callback: Function) => {
   callback()
 }
 
-const mailValidator = (rule: any, value: string, callback: Function) => {
+const mailValidator = (rule: unknown, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请输入邮箱'))
   } else if (!value.includes('@') || !value.includes('.com')) {
@@ -16,7 +16,7 @@ const mailValidator = (rule: any, value: string, callback: Function) => {
   callback()
 }
 
-const phoneNumberValidator = (rule: any, value: string, callback: Function) => {
+const phoneNumberValidator = (rule: unknown, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请输入电话号码'))
   } else if (!/^1[0-9]{10}$/.test(value)) {
@@ -26,28 +26,22 @@ const phoneNumberValidator = (rule: any, value: string, callback: Function) => {
 }
 
 export default {
-  name: [
-    {required: true, message: '请输入姓名', trigger: 'blur'}
-  ],
-  age: [
-    {required: true}
-  ],
+  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+  age: [{ required: true }],
   entryDate: [
-    {validator: entryDateValidator, required: true, trigger: 'change'},
-    {validator: entryDateValidator, trigger: 'blur'}
+    { validator: entryDateValidator, required: true, trigger: 'change' },
+    { validator: entryDateValidator, trigger: 'blur' }
   ],
   mail: [
-    {validator: mailValidator, required: true, trigger: 'change'},
-    {validator: mailValidator, trigger: 'blur'}
+    { validator: mailValidator, required: true, trigger: 'change' },
+    { validator: mailValidator, trigger: 'blur' }
   ],
   phoneNumber: [
-    {validator: phoneNumberValidator, required: true, trigger: 'change'},
-    {validator: phoneNumberValidator, trigger: 'blur'}
+    { validator: phoneNumberValidator, required: true, trigger: 'change' },
+    { validator: phoneNumberValidator, trigger: 'blur' }
   ],
   selfPositioning: [
-    {type: 'array', required: true, message: '请选择定位', trigger: 'change'}
+    { type: 'array', required: true, message: '请选择定位', trigger: 'change' }
   ],
-  planning: [
-    {max: 100, message: '不能超过100个字符', trigger: 'blur'}
-  ]
+  planning: [{ max: 100, message: '不能超过100个字符', trigger: 'blur' }]
 }

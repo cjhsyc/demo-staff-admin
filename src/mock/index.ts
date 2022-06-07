@@ -1,5 +1,5 @@
-import Mock from "mockjs";
-import staffs from "@/mock/data/staffs";
+import Mock from 'mockjs'
+import staffs from '@/mock/data/staffs'
 
 Mock.mock('mock/staffs', 'post', staffs.getStaffs)
 Mock.mock('mock/staffs/remove', 'post', staffs.removeStaff)

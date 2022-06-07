@@ -1,5 +1,5 @@
 type MockApiOptions = {
   url: string
   type: string
-  body: any
+  body: unknown
 }

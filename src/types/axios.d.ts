@@ -1,5 +1,15 @@
+/* import axios from "axios";
+
+declare module "axios" {
+  export type AxiosResponse<T = any> = Promise<T>;
+}
+ */
+
+// axios.d.ts
 import axios from 'axios'
 
 declare module 'axios' {
-  export interface AxiosResponse<T = any> extends Promise<T> {}
+  interface AxiosInstance {
+    (config: AxiosRequestConfig): Promise<any>
+  }
 }
