@@ -81,7 +81,7 @@ export function getAddressCode(address: string): {
   }
   if (arr[2]) {
     for (const item of getCountyList(cityCode)) {
-      if (arr[1] === item.value) {
+      if (arr[2] === item.value) {
         countyCode = item.key
       }
     }

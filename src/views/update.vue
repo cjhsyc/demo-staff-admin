@@ -1,21 +1,8 @@
 <template>
   <div class="out">
-    <el-form
-      label-width="100px"
-      :model="staff"
-      :rules="rules"
-      status-icon
-      ref="updateForm"
-    >
+    <el-form label-width="100px" :model="staff" :rules="rules" status-icon ref="updateForm">
       <el-form-item label="基础信息"></el-form-item>
-      <el-form
-        :inline="true"
-        label-width="100px"
-        :model="staff"
-        :rules="rules"
-        status-icon
-        ref="inlineForm1"
-      >
+      <el-form :inline="true" label-width="100px" :model="staff" :rules="rules" status-icon ref="inlineForm1">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="staff.name"></el-input>
         </el-form-item>
@@ -26,27 +13,16 @@
           </el-select>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
-          <el-input-number
-            v-model.number="staff.age"
-            :min="18"
-            :max="35"
-            :step-strictly="true"
-          ></el-input-number>
+          <el-input-number v-model.number="staff.age" :min="18" :max="35" :step-strictly="true"></el-input-number>
         </el-form-item>
       </el-form>
-      <el-form
-        :inline="true"
-        label-width="100px"
-        :model="staff"
-        :rules="rules"
-        status-icon
-        ref="inlineForm2"
-      >
+      <el-form :inline="true" label-width="100px" :model="staff" :rules="rules" status-icon ref="inlineForm2">
         <el-form-item label="入职日期" prop="entryDate">
           <el-date-picker
             v-model="staff.entryDate"
             type="date"
             value-format="yyyy-MM-dd"
+            :picker-options="disabledEntryDate"
           ></el-date-picker>
         </el-form-item>
         <el-form-item label="邮箱" prop="mail">
@@ -62,10 +38,10 @@
       <el-form-item label="个人简介">
         <el-upload
           class="upload-demo"
-          drag
           action="mock/introduction"
-          :limit="2"
+          drag
           multiple
+          :limit="2"
           :before-upload="beforeUpload"
           :on-exceed="exceed"
           :file-list="staff.introduction"
@@ -86,33 +62,18 @@
       <el-form-item label="所在公司地址"></el-form-item>
       <el-form :inline="true" label-width="100px">
         <el-form-item label="省">
-          <el-select v-model="provinceCode" filterable>
-            <el-option
-              v-for="item in provinceList"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            ></el-option>
+          <el-select v-model="addressCode.provinceCode" filterable clearable>
+            <el-option v-for="item in provinceList" :key="item.key" :label="item.value" :value="item.key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="市">
-          <el-select v-model="cityCode" filterable>
-            <el-option
-              v-for="item in cityList"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            ></el-option>
+          <el-select v-model="addressCode.cityCode" filterable clearable>
+            <el-option v-for="item in cityList" :key="item.key" :label="item.value" :value="item.key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="区">
-          <el-select v-model="countyCode" filterable>
-            <el-option
-              v-for="item in countyList"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            ></el-option>
+          <el-select v-model="addressCode.countyCode" filterable clearable>
+            <el-option v-for="item in countyList" :key="item.key" :label="item.value" :value="item.key"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -127,44 +88,45 @@
 <script lang="ts">
 /* global Staff, KeyValue, Result, IntroductionFile */
 import { Component, Vue, Watch, Ref } from 'vue-property-decorator'
-import {
-  getCityList,
-  getCountyList,
-  getProvinceList,
-  getAddress,
-  getAddressCode
-} from '@/utils/address'
+import { getCityList, getCountyList, getProvinceList, getAddress, getAddressCode } from '@/utils/address'
 import rules from '@/element/rules'
 import { Form } from 'element-ui'
 import api from '@/api'
 
 @Component
 export default class update extends Vue {
-  staff: Staff = {
-    id: '',
-    name: '',
-    sex: undefined,
-    age: 18,
-    entryDate: '',
-    selfPositioning: [],
-    mail: '',
-    phoneNumber: '',
-    planning: '',
-    introduction: [],
-    address: ''
-  }
-  provinceCode = ''
-  cityCode = ''
-  countyCode = ''
+  staff: Staff = this.$route.params.staff
+    ? JSON.parse(this.$route.params.staff)
+    : {
+        id: '',
+        name: '',
+        sex: undefined,
+        age: 18,
+        entryDate: '',
+        selfPositioning: [],
+        mail: '',
+        phoneNumber: '',
+        planning: '',
+        introduction: [],
+        address: ''
+      }
+  addressCode = this.$route.params.staff
+    ? getAddressCode(this.staff.address)
+    : { provinceCode: '', cityCode: '', countyCode: '' }
   provinceList: KeyValue[] = getProvinceList()
-  cityList: KeyValue[] = []
-  countyList: KeyValue[] = []
+  cityList: KeyValue[] = getCityList(this.addressCode.provinceCode)
+  countyList: KeyValue[] = getCountyList(this.addressCode.cityCode)
   rules: any = rules
   allowFileTypes: string[] = [
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/pdf'
   ]
+  disabledEntryDate = {
+    disabledDate: (time: any) => {
+      return time.getTime() > Date.now()
+    }
+  }
 
   @Ref('updateForm')
   readonly updateForm!: Form
@@ -173,16 +135,16 @@ export default class update extends Vue {
   @Ref('inlineForm2')
   readonly inlineForm2!: Form
 
-  @Watch('provinceCode')
+  @Watch('addressCode.provinceCode')
   changeCityList(val: string) {
-    this.cityCode = ''
-    this.countyCode = ''
+    this.addressCode.cityCode = ''
+    this.addressCode.countyCode = ''
     this.cityList = getCityList(val)
   }
 
-  @Watch('cityCode')
+  @Watch('addressCode.cityCode')
   changeCountyList(val: string) {
-    this.countyCode = ''
+    this.addressCode.countyCode = ''
     this.countyList = getCountyList(val)
   }
 
@@ -233,9 +195,9 @@ export default class update extends Vue {
       return
     }
     this.staff.address = getAddress(
-      this.provinceCode,
-      this.cityCode,
-      this.countyCode
+      this.addressCode.provinceCode,
+      this.addressCode.cityCode,
+      this.addressCode.countyCode
     )
     const result: any = await api.saveStaffs(this.staff)
     if (result.code === 200) {
@@ -246,18 +208,6 @@ export default class update extends Vue {
           params: { needUpdate: 'true' }
         })
       }
-    }
-  }
-
-  mounted() {
-    if (this.$route.params.staff) {
-      this.staff = JSON.parse(this.$route.params.staff)
-      const { provinceCode, cityCode, countyCode } = getAddressCode(
-        this.staff.address
-      )
-      this.provinceCode = provinceCode
-      this.cityCode = cityCode
-      this.countyCode = countyCode
     }
   }
 }

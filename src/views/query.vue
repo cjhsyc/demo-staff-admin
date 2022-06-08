@@ -49,7 +49,12 @@
     <el-row :gutter="20">
       <el-col :span="7">
         省：
-        <el-select size="small" v-model="queryData.provinceCode" filterable>
+        <el-select
+          size="small"
+          v-model="queryData.provinceCode"
+          filterable
+          clearable
+        >
           <el-option
             v-for="item in provinceList"
             :key="item.key"
@@ -60,7 +65,12 @@
       </el-col>
       <el-col :span="7">
         市：
-        <el-select size="small" v-model="queryData.cityCode" filterable>
+        <el-select
+          size="small"
+          v-model="queryData.cityCode"
+          filterable
+          clearable
+        >
           <el-option
             v-for="item in cityList"
             :key="item.key"
@@ -71,7 +81,12 @@
       </el-col>
       <el-col :span="7">
         区：
-        <el-select size="small" v-model="queryData.countyCode" filterable>
+        <el-select
+          size="small"
+          v-model="queryData.countyCode"
+          filterable
+          clearable
+        >
           <el-option
             v-for="item in countyList"
             :key="item.key"
