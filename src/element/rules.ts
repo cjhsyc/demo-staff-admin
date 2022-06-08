@@ -40,8 +40,6 @@ export default {
     { validator: phoneNumberValidator, required: true, trigger: 'change' },
     { validator: phoneNumberValidator, trigger: 'blur' }
   ],
-  selfPositioning: [
-    { type: 'array', required: true, message: '请选择定位', trigger: 'change' }
-  ],
+  selfPositioning: [{ type: 'array', required: true, message: '请选择定位', trigger: 'change' }],
   planning: [{ max: 100, message: '不能超过100个字符', trigger: 'blur' }]
 }

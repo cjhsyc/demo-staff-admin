@@ -21,11 +21,7 @@ for (let i = 0; i < 14; i++) {
 
 export default {
   getStaffs: (options: MockApiOptions): Result => {
-    const {
-      pageSize,
-      currentPage,
-      queryData
-    }: { pageSize: number; currentPage: number; queryData?: QueryData } =
+    const { pageSize, currentPage, queryData }: { pageSize: number; currentPage: number; queryData?: QueryData } =
       JSON.parse(options.body as string)
     let list: Staff[] = staffs
     if (typeof queryData !== 'undefined') {
@@ -36,19 +32,10 @@ export default {
         if (queryData.entryDate && staff.entryDate !== queryData.entryDate) {
           return false
         }
-        if (
-          queryData.selfPositioning.length &&
-          !compareArrays(queryData.selfPositioning, staff.selfPositioning)
-        ) {
+        if (queryData.selfPositioning.length && !compareArrays(queryData.selfPositioning, staff.selfPositioning)) {
           return false
         }
-        return staff.address.startsWith(
-          getAddress(
-            queryData.provinceCode,
-            queryData.cityCode,
-            queryData.countyCode
-          )
-        )
+        return staff.address.startsWith(getAddress(queryData.provinceCode, queryData.cityCode, queryData.countyCode))
       })
     }
     const total: number = list.length

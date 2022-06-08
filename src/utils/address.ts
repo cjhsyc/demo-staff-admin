@@ -16,11 +16,7 @@ export function getCityList(provinceCode: string): KeyValue[] {
   }
   const cityList: KeyValue[] = []
   Object.keys(DICT).forEach((key: string) => {
-    if (
-      !key.endsWith('0000') &&
-      key.endsWith('00') &&
-      key.startsWith(provinceCode.substring(0, 2))
-    ) {
+    if (!key.endsWith('0000') && key.endsWith('00') && key.startsWith(provinceCode.substring(0, 2))) {
       cityList.push({ key: key, value: DICT[key] })
     }
   })
@@ -40,11 +36,7 @@ export function getCountyList(cityCode: string): KeyValue[] {
   return countyList
 }
 
-export function getAddress(
-  provinceCode: string,
-  cityCode: string,
-  countyCode: string
-): string {
+export function getAddress(provinceCode: string, cityCode: string, countyCode: string): string {
   let address = ''
   if (countyCode) {
     address = DICT[provinceCode] + ' ' + DICT[cityCode] + ' ' + DICT[countyCode]
@@ -81,7 +73,7 @@ export function getAddressCode(address: string): {
   }
   if (arr[2]) {
     for (const item of getCountyList(cityCode)) {
-      if (arr[1] === item.value) {
+      if (arr[2] === item.value) {
         countyCode = item.key
       }
     }

@@ -6,10 +6,10 @@ declare module "axios" {
  */
 
 // axios.d.ts
-import axios from 'axios'
+/* import axios from 'axios'
 
 declare module 'axios' {
   interface AxiosInstance {
     (config: AxiosRequestConfig): Promise<any>
   }
-}
+} */
