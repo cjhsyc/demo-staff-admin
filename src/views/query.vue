@@ -167,7 +167,7 @@
 </template>
 
 <script lang="ts">
-/* global Staff, KeyValue, QueryData, Introduction  */
+/* global Staff, KeyValue, QueryData, Introduction */
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { getProvinceList, getCityList, getCountyList } from '@/utils/address'
 import api from '@/api'
