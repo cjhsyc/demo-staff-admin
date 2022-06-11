@@ -1,8 +1,21 @@
 <template>
   <div class="out">
-    <el-form label-width="100px" :model="staff" :rules="rules" status-icon ref="updateForm">
+    <el-form
+      label-width="100px"
+      :model="staff"
+      :rules="rules"
+      status-icon
+      ref="updateForm"
+    >
       <el-form-item label="基础信息"></el-form-item>
-      <el-form :inline="true" label-width="100px" :model="staff" :rules="rules" status-icon ref="inlineForm1">
+      <el-form
+        :inline="true"
+        label-width="100px"
+        :model="staff"
+        :rules="rules"
+        status-icon
+        ref="inlineForm1"
+      >
         <el-form-item label="姓名" prop="name">
           <el-input v-model="staff.name"></el-input>
         </el-form-item>
@@ -13,10 +26,22 @@
           </el-select>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
-          <el-input-number v-model.number="staff.age" :min="18" :max="35" :step-strictly="true"></el-input-number>
+          <el-input-number
+            v-model.number="staff.age"
+            :min="18"
+            :max="35"
+            :step-strictly="true"
+          ></el-input-number>
         </el-form-item>
       </el-form>
-      <el-form :inline="true" label-width="100px" :model="staff" :rules="rules" status-icon ref="inlineForm2">
+      <el-form
+        :inline="true"
+        label-width="100px"
+        :model="staff"
+        :rules="rules"
+        status-icon
+        ref="inlineForm2"
+      >
         <el-form-item label="入职日期" prop="entryDate">
           <el-date-picker
             v-model="staff.entryDate"
@@ -63,17 +88,32 @@
       <el-form :inline="true" label-width="100px">
         <el-form-item label="省">
           <el-select v-model="addressCode.provinceCode" filterable clearable>
-            <el-option v-for="item in provinceList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+            <el-option
+              v-for="item in provinceList"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="市">
           <el-select v-model="addressCode.cityCode" filterable clearable>
-            <el-option v-for="item in cityList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+            <el-option
+              v-for="item in cityList"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="区">
           <el-select v-model="addressCode.countyCode" filterable clearable>
-            <el-option v-for="item in countyList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+            <el-option
+              v-for="item in countyList"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -88,7 +128,13 @@
 <script lang="ts">
 /* global Staff, KeyValue, Result, IntroductionFile */
 import { Component, Vue, Watch, Ref } from 'vue-property-decorator'
-import { getCityList, getCountyList, getProvinceList, getAddress, getAddressCode } from '@/utils/address'
+import {
+  getCityList,
+  getCountyList,
+  getProvinceList,
+  getAddress,
+  getAddressCode
+} from '@/utils/address'
 import rules from '@/element/rules'
 import { Form } from 'element-ui'
 import api from '@/api'

@@ -5,7 +5,6 @@ declare module "axios" {
 }
  */
 
-// axios.d.ts
 /* import axios from 'axios'
 
 declare module 'axios' {

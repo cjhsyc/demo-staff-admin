@@ -5,6 +5,6 @@ module.exports = {
   semi: false,
   // 末尾不需要逗号
   trailingComma: 'none',
-  // 一行最多 120 字符
-  printWidth: 120
+  // 一行最多 80 字符
+  printWidth: 80
 }

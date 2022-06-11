@@ -3,7 +3,12 @@
     <el-row :gutter="20">
       <el-col :span="7">
         姓名：
-        <el-input prefix-icon="el-icon-search" v-model="queryData.name" size="small" style="width: 70%"></el-input>
+        <el-input
+          prefix-icon="el-icon-search"
+          v-model="queryData.name"
+          size="small"
+          style="width: 70%"
+        ></el-input>
       </el-col>
       <el-col :span="7">
         个人定位：
@@ -31,35 +36,96 @@
         ></el-date-picker>
       </el-col>
       <el-col :span="3">
-        <el-button type="success" size="small" style="width: 100px" @click="queryStaffs"> 查询 </el-button>
+        <el-button
+          type="success"
+          size="small"
+          style="width: 100px"
+          @click="queryStaffs"
+        >
+          查询
+        </el-button>
       </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="7">
         省：
-        <el-select size="small" v-model="queryData.provinceCode" filterable clearable>
-          <el-option v-for="item in provinceList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+        <el-select
+          size="small"
+          v-model="queryData.provinceCode"
+          filterable
+          clearable
+        >
+          <el-option
+            v-for="item in provinceList"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="7">
         市：
-        <el-select size="small" v-model="queryData.cityCode" filterable clearable>
-          <el-option v-for="item in cityList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+        <el-select
+          size="small"
+          v-model="queryData.cityCode"
+          filterable
+          clearable
+        >
+          <el-option
+            v-for="item in cityList"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="7">
         区：
-        <el-select size="small" v-model="queryData.countyCode" filterable clearable>
-          <el-option v-for="item in countyList" :key="item.key" :label="item.value" :value="item.key"></el-option>
+        <el-select
+          size="small"
+          v-model="queryData.countyCode"
+          filterable
+          clearable
+        >
+          <el-option
+            v-for="item in countyList"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          ></el-option>
         </el-select>
       </el-col>
       <el-col :span="3">
-        <el-button type="warning" size="small" style="width: 100px" @click="reset">重置</el-button>
+        <el-button
+          type="warning"
+          size="small"
+          style="width: 100px"
+          @click="reset"
+          >重置</el-button
+        >
       </el-col>
     </el-row>
-    <el-button type="success" size="small" style="width: 100px" @click="addStaff">新增</el-button>
-    <el-button type="danger" size="small" style="width: 100px" @click="removeStaffs">删除</el-button>
-    <el-table ref="multipleTable" :data="staffs" style="width: 100%" @selection-change="handleSelectionChange" border>
+    <el-button
+      type="success"
+      size="small"
+      style="width: 100px"
+      @click="addStaff"
+      >新增</el-button
+    >
+    <el-button
+      type="danger"
+      size="small"
+      style="width: 100px"
+      @click="removeStaffs"
+      >删除</el-button
+    >
+    <el-table
+      ref="multipleTable"
+      :data="staffs"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+      border
+    >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="姓名" prop="name" width="120"></el-table-column>
       <el-table-column label="性别" prop="sex" width="120"></el-table-column>
@@ -79,8 +145,12 @@
       <el-table-column label="所在公司地址" prop="address"></el-table-column>
       <el-table-column label="操作" width="160">
         <template v-slot="{ row }">
-          <el-button type="primary" size="small" @click="updateStaff(row)">修改</el-button>
-          <el-button type="danger" size="small" @click="removeStaff(row)">删除</el-button>
+          <el-button type="primary" size="small" @click="updateStaff(row)"
+            >修改</el-button
+          >
+          <el-button type="danger" size="small" @click="removeStaff(row)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -134,7 +204,11 @@ export default class query extends Vue {
     this.countyList = getCountyList(val)
   }
 
-  async getStaffs(pageSize: number, currentPage: number, queryData?: QueryData) {
+  async getStaffs(
+    pageSize: number,
+    currentPage: number,
+    queryData?: QueryData
+  ) {
     const result: any = await api.getStaffs(pageSize, currentPage, queryData)
     if (result.code === 200) {
       this.staffs = result.data.staffs
